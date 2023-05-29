@@ -6,19 +6,33 @@ module.exports = {
         pdp: './src/pdp/index.js',
         plp: './src/plp/index.js',
     },
-    // output: {
-    //     path: path.resolve(__dirname, 'dist'),
-    //     filename: 'bundle.js',
-    // },
+    module: {
+        rules: [
+            {
+                test: /\.css$/,
+                use: ['style-loader', 'css-loader']
+            }
+        ]
+    },
+    optimization: {
+        splitChunks: {
+            cacheGroups: {
+                vendor: {
+                    test: /[\\/]node_modules[\\/].*\.js$/,
+                    chunks: 'all'
+                }
+            }
+        }
+    },
     plugins: [new HtmlWebpackPlugin({
         filename: 'index.html',
         template: './src/plp/index.html',
-        chunks: ['plp']
+        chunks: ['plp', 'vendor']
     }),
     new HtmlWebpackPlugin({
         filename: 'pdp.html',
         template: './src/pdp/index.html',
-        chunks: ['pdp']
+        chunks: ['pdp', 'vendor']
     })],
     devServer: {
         static: {
