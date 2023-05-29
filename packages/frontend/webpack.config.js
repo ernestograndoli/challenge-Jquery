@@ -1,4 +1,5 @@
 const path = require('path');
+const webpack = require('webpack')
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
@@ -33,6 +34,9 @@ module.exports = {
         filename: 'pdp.html',
         template: './src/pdp/index.html',
         chunks: ['pdp', 'vendor']
+    }),
+    new webpack.DefinePlugin({
+        'process.env': JSON.stringify(process.env)
     })],
     devServer: {
         static: {

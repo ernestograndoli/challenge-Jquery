@@ -1,4 +1,4 @@
-export default {
+module.exports = {
     10167: {
         stock: 130,
         price: 2865,

@@ -3,4 +3,6 @@ import bootstrap from "bootstrap";
 import "../common.css";
 import "@fontsource/dm-sans";
 
-console.log("Prueba PLP");
+import { StockPriceApi } from '../services'
+
+console.log("Prueba PLP", StockPriceApi.getAll());

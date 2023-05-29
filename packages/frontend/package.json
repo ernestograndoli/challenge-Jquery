@@ -5,12 +5,13 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "webpack serve --mode development"
+    "start": "env-cmd webpack serve --mode development"
   },
   "author": "webpack serve",
   "license": "ISC",
   "devDependencies": {
     "css-loader": "^6.8.1",
+    "env-cmd": "^10.1.0",
     "html-webpack-plugin": "^5.5.1",
     "style-loader": "^3.3.3",
     "webpack": "^5.84.1",
