@@ -1,0 +1,1 @@
+export const productUrlEncode = (code, brand) => `${code}${brand}`.replace(/\W/i, "").toLowerCase()
