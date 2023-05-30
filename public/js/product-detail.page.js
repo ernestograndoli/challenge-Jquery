@@ -4,6 +4,14 @@ import { productUrlEncode } from './utils.js'
 
 const INTERVAL_REFRESH_MS = 5000
 
+const getSkuView = ({ name }) => `
+<div class="col-4">
+    <div class="border rounded-pill text-center">
+        <span style="color: #969696; font-size: 14px">${name}</span>
+    </div>
+</div>
+`
+
 const updateView = (product, priceStock) => {
     console.log(document.getElementById("price"))
     document.getElementById("brand").innerHTML = product.brand
@@ -11,6 +19,9 @@ const updateView = (product, priceStock) => {
     document.getElementById("description").innerHTML = product.information
     document.getElementById("price").innerHTML = parseInt(priceStock.price) / 100
     document.getElementById("stock").innerHTML = priceStock.stock
+    document.getElementById("img").src = `./img${product.image}`
+    document.getElementById("img").alt = product.brand
+    document.getElementById("skusContainer").innerHTML = product.skus.map(getSkuView).join("")
 }
 
 const fetchPriceStock = async (product) => {
