@@ -14,6 +14,6 @@ app.set('layout', 'layout')
 app.set('view engine', 'ejs')
 
 app.use('/api', apiRouter);
-app.use('*', viewsRouter)
+app.use('', viewsRouter)
 
 module.exports = app;
