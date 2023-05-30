@@ -1,6 +1,8 @@
 import ProductsService from "./products.service.js";
 import { productUrlEncode } from "./utils.js";
 
+const INTERVAL_REFRESH_MS = 5000
+
 const getHtmlProduct = (product) => `
 <div class="col-6 col-md-3">
     
@@ -14,12 +16,11 @@ const getHtmlProduct = (product) => `
             </div>
             <div class="card-body text-primary bg-white pt-0 pb-0">
             <a href="${productUrlEncode(
-              product.id,
-              product.brand
-            )}" style="text-decoration: none; color: inherit">
-                <img src="./img${product.image}" alt="${
-  product.brand
-}" class="w-100" />
+    product.id,
+    product.brand
+)}" style="text-decoration: none; color: inherit">
+                <img src="./img${product.image}" alt="${product.brand
+    }" class="w-100" />
 </a>
             </div>            
             <div
@@ -28,9 +29,7 @@ const getHtmlProduct = (product) => `
             >
                 <div class="row d-flex flex-row align-items-center w-100 m-0">
                     <div class="col-9 p-0">
-                        <span class="fw-bold ps-3">$${parseInt(
-                          product.price / 100
-                        )}</span>
+                    <span class="fw-bold ps-3">$<span id="price-${product.id}"></span></span>
                     </div>
                     <div class="col-3 p-0 d-flex flex-row justify-content-end">
                         <div
@@ -46,8 +45,17 @@ const getHtmlProduct = (product) => `
 
 const products = ProductsService.getAll();
 
-console.log(products);
+const fetchPriceStock = async (product) => {
+    const response = await ProductsService.getStockPrice(product.skus[0].code)
+    const { price } = await response.json()
+
+    document.getElementById(`price-${product.id}`).innerHTML = parseInt(price) / 100
+
+    setTimeout(async () => await fetchPriceStock(product), INTERVAL_REFRESH_MS)
+}
+
+products.forEach((i) => fetchPriceStock(i))
 
 document.getElementById("products-container").innerHTML = products
-  .map((i) => getHtmlProduct(i))
-  .join("");
+    .map((i) => getHtmlProduct(i))
+    .join("");
