@@ -1,11 +1,10 @@
-
-import ProductsService from './products.service.js'
+import ProductsService from "./products.service.js";
 
 const getHtmlProduct = (brand, img) => `
 <div class="col-6 col-md-3">
     <div
     class="card mb-3 bg-white border-0"
-    style="border-radius: 12px 32px 12px 12px"
+    style="border-radius: 12px 12px 12px 12px"
     >
     <div class="card-header fw-bold border-0 bg-white fs-6 pb-0"
         style="border-radius: 12px 32px 12px 12px"
@@ -32,11 +31,12 @@ const getHtmlProduct = (brand, img) => `
         </div>
     </div>
     </div>
-</div>`
+</div>`;
 
-const products = ProductsService.getAll()
+const products = ProductsService.getAll();
 
-console.log(products)
+console.log(products);
 
-document.getElementById("products-container").innerHTML = products.map(i => getHtmlProduct(i.brand, i.image)).join("")
-
+document.getElementById("products-container").innerHTML = products
+  .map((i) => getHtmlProduct(i.brand, i.image))
+  .join("");
