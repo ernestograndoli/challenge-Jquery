@@ -4,7 +4,7 @@ const stockPrices = require('../data/stock-price')
 
 
 router.get('', (req, res) => {
-    res.render('products', { title: 'Product List' })
+    res.render('products', { title: 'Product List', styles: ["css/products.css"] })
 })
 
 router.get('*', (req, res) => {

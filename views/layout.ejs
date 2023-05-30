@@ -10,6 +10,9 @@
   <link rel="stylesheet" href="css/bootstrap-icons.min.css">
   <link rel="stylesheet" href="css/common.css">
   <script src="js/bootstrap.min.js"></script>
+  <% for(var i=0; i < styles.length; i++) { %>
+    <link href="<%= styles[i].uri %>" rel="stylesheet"  type="text/css">
+  <% } %> 
   <title><%- title %></title>
 </head>
 

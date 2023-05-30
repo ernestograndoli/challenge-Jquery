@@ -1,0 +1,12 @@
+.products-nav-header-icon {
+    width: 47px;
+    height: 47px;
+    background-image: url('../icons/user.jpg');
+    background-repeat: no-repeat, repeat;
+    background-size: cover;
+}
+
+.products-footer-mobile {
+    height: 72px;
+    background: #ffffff
+}
