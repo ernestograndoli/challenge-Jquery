@@ -1,29 +1,35 @@
 import ProductsService from "./products.service.js";
-
 import { productUrlEncode, priceToString } from "./utils.js";
 
 const INTERVAL_REFRESH_MS = 5000;
 
-const getSkuView = ({ name }) => `
-<div class="col-4">
-    <div class="border rounded-pill text-center">
-        <span style="color: #969696; font-size: 14px">${name}</span>
-    </div>
-</div>
-`;
+const getSkuView = ({ name }) => {
+  const container = $("<div></div>");
+  const divColumn = $("<div></div>");
+  divColumn.addClass("col-4");
+
+  const pill = $("<div></div>");
+  pill.addClass("border rounded-pill text-center");
+
+  const nameSku = $("<span></span>").text(name);
+  nameSku.addClass("skuPill");
+
+  pill.append(nameSku);
+  divColumn.append(pill);
+  container.append(divColumn);
+
+  return container.html();
+};
 
 const updateView = (product, priceStock) => {
-  console.log(document.getElementById("price"));
-  document.getElementById("brand").innerHTML = product.brand;
-  document.getElementById("origin").innerHTML = product.origin;
-  document.getElementById("description").innerHTML = product.information;
-  document.getElementById("price").innerHTML = priceToString(priceStock.price);
-  document.getElementById("stock").innerHTML = priceStock.stock;
-  document.getElementById("img").src = `./img${product.image}`;
-  document.getElementById("img").alt = product.brand;
-  document.getElementById("skusContainer").innerHTML = product.skus
-    .map(getSkuView)
-    .join("");
+  $("#brand").html(product.brand);
+  $("#origin").html(product.origin);
+  $("#description").html(product.information);
+  $("#price").html(priceToString(priceStock.price));
+  $("#stock").html(priceStock.stock);
+  $("#img").attr("src", `./img${product.image}`);
+  $("#img").attr("alt", product.brand);
+  $("#skusContainer").html(product.skus.map(getSkuView).join(""));
 };
 
 const fetchPriceStock = async (product) => {
